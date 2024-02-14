@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:199821@localhost:3306/sistema_livraria"
+}
+
+model Livro {
+  id    Int    @id @default(autoincrement())
+  titulo      String
+  autor       String
+  editora     String
+  anoPublicacao Int
+  disponivel  Boolean  @default(true)
+  emprestimos   Emprestimo[]
+
+  @@map("livros")
+}
+
+model Cliente {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  email       String   @unique
+  emprestimos   Emprestimo[]
+
+  @@map("clientes")
+}
+
+model Emprestimo {
+  id            Int      @id @default(autoincrement())
+  livro         Livro    @relation(fields: [livro_id], references: [id])
+  livro_id       Int
+  cliente       Cliente  @relation(fields: [cliente_id], references: [id])
+  cliente_id     Int
+  dataEmprestimo DateTime @default(now())
+  dataDevolucao DateTime
+  ativo       Boolean  @default(true)  
+
+  @@map("emprestimos")
+}
+
+
