@@ -14,8 +14,9 @@ model Livro {
   id    Int    @id @default(autoincrement())
   titulo      String
   autor       String
-  editora     String
+  genero     String?
   anoPublicacao Int
+  imagem      String?
   disponivel  Boolean  @default(true)
   emprestimos   Emprestimo[]
 
@@ -26,6 +27,7 @@ model Cliente {
   id          Int      @id @default(autoincrement())
   nome        String
   email       String   @unique
+  senha       String?
   emprestimos   Emprestimo[]
 
   @@map("clientes")

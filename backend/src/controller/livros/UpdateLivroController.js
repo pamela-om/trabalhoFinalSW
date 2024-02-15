@@ -2,7 +2,7 @@ import { prisma } from '../../database/client.js'
 
 export class UpdateLivroController {
     async handle(request, response) {
-      const { id, titulo, autor, editora, anoPublicacao } = request.body;
+      const { id, titulo, autor, genero, anoPublicacao } = request.body;
   
       try {
         const livro = await prisma.livro.update({
@@ -12,7 +12,7 @@ export class UpdateLivroController {
           data: {
             titulo,
             autor,
-            editora,
+            genero,
             anoPublicacao
           }
         });

@@ -3,6 +3,7 @@ import { CreateLivroController } from '../controller/livros/CreateLivroControlle
 import { GetAllLivroController } from '../controller/livros/GetAllLivroController.js';
 import { GetByNomeLivroController } from '../controller/livros/GetByNomeLivroController.js';
 import { UpdateLivroController } from '../controller/livros/UpdateLivroController.js';
+import { GetLivrosDisponiveisController } from '../controller/livros/GetLivrosDisponiveisController.js';
 
 import { DeleteLivroController } from '../controller/livros/DeleteLivroController.js';
 
@@ -27,5 +28,8 @@ livroRouter.put('/livros', updateLivroController.handle);
 // Delete
 const deleteLivroController = new DeleteLivroController();
 livroRouter.delete('/livros', deleteLivroController.handle);
+
+const getLivrosDisponiveisController = new GetLivrosDisponiveisController();
+livroRouter.get('/livrosDisponiveis', getLivrosDisponiveisController.handle);
 
 export { livroRouter }
