@@ -4,7 +4,9 @@ import { clienteRouter } from './src/routes/clientes.js';
 import { emprestimoRouter } from './src/routes/emprestimos.js'
 import { livroRouter } from './src/routes/livros.js';
 
+import dotenv from 'dotenv';
 
+dotenv.config();
 const server = express();
 const PORT = 5000
 

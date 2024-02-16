@@ -1,8 +1,9 @@
 import { prisma } from '../../database/client.js';
+import { addMonths } from 'date-fns';
 
 export class CreateEmprestimoController {
   async handle(request, response) {
-    const { livro_id, cliente_id, dataDevolucao } = request.body;
+    const { livro_id, cliente_id } = request.body;
   
     // Encontrar o livro correspondente pelo ID
     const livro = await prisma.livro.findUnique({
@@ -30,7 +31,11 @@ export class CreateEmprestimoController {
       }
     });
 
-    // Registrar o empréstimo como não finalizado
+    // Calcular a data de devolução (um mês após a data atual)
+    const dataAtual = new Date();
+    const dataDevolucao = addMonths(dataAtual, 1);
+
+    // Registrar o empréstimo
     const emprestimo = await prisma.emprestimo.create({
       data: {
         livro: {
@@ -43,8 +48,8 @@ export class CreateEmprestimoController {
             id: cliente_id
           }
         },
-        ativo: true, 
-        dataDevolucao// Empréstimo não finalizado
+        ativo: true,
+        dataDevolucao // Data de devolução calculada
       }
     });
 
